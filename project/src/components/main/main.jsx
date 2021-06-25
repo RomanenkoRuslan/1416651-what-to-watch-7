@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilmCard from '../film-card/film-card.jsx';
-import {TITLESFILMS} from '../../const.js';
+import filmsArray from '../../index.js';
 
 function Main({title, genre, year}) {
   return (
@@ -102,7 +102,7 @@ function Main({title, genre, year}) {
           </ul>
 
           <div className="catalog__films-list">
-            {TITLESFILMS.map((element) => <FilmCard key={element} />)}
+            {filmsArray.map((film) => <FilmCard key={film.id} />)}
           </div>
 
           <div className="catalog__more">
