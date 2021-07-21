@@ -34,3 +34,12 @@ export const GENRES = [
   'Sci-Fi',
   'Thrillers',
 ];
+
+export const AppRoute = {
+  MAIN: '/',
+  LOGIN: '/login',
+  MYLIST: '/mylist',
+  FILM: '/films/:id',
+  REVIEW: '/films/:id/review',
+  PLAYER: '/player/:id',
+};
