@@ -1,25 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import FilmCard from '../film-card/film-card.jsx';
 
-function FilmCard(props) {
-  const film = props.film;
+function FilmList(props) {
+  const films = props.films;
   // eslint-disable
-  // console.log(film);
+  // console.log(films);
   return (
-    <article className="small-film-card catalog__films-card">
-      <div className="small-film-card__image">
-        <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={film.title} width="280" height="175" />
-      </div>
-      <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to="/films/:id">{film.title}</Link>
-      </h3>
-    </article>
+    <>
+      {films.map((film) => <FilmCard key={film.id} film={film}/>)}
+    </>
   );
 }
 
-FilmCard.propTypes = {
-  film: PropTypes.arrayOf(
+FilmList.propTypes = {
+  films: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
@@ -36,4 +31,4 @@ FilmCard.propTypes = {
   ),
 };
 
-export default FilmCard;
+export default FilmList;

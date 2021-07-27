@@ -1,9 +1,11 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import Review from '../review/review.jsx';
 
-function Film(props) {
-  // const films = props.films;
-  // console.log(props.id);
+function ReviewList(props) {
+  const reviews = props.reviews;
+  //eslint-disable
+  // console.log(reviews);
   return (
     <>
       <section className="film-card film-card--full">
@@ -71,40 +73,27 @@ function Film(props) {
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
+                  <li className="film-nav__item">
                     <a href className="film-nav__link">Overview</a>
                   </li>
                   <li className="film-nav__item">
                     <a href className="film-nav__link">Details</a>
                   </li>
-                  <li className="film-nav__item">
+                  <li className="film-nav__item film-nav__item--active">
                     <a href className="film-nav__link">Reviews</a>
                   </li>
                 </ul>
               </nav>
 
-              <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustaves friend and protege.</p>
-
-                <p>Gustave prides himself on providing first-class service to the hotels guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustaves lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-
-                <p className="film-card__director"><strong>Director: Wes Andreson</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
+              <div className="film-card__reviews film-card__row">
+                <div className="film-card__reviews-col">
+                  {reviews.map((review) => <Review key={review.id} review={review}/>)}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
@@ -166,22 +155,16 @@ function Film(props) {
   );
 }
 
-// Film.propTypes = {
-//   films: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       title: PropTypes.string.isRequired,
-//       genre: PropTypes.string.isRequired,
-//       year: PropTypes.number.isRequired,
-//       rating: PropTypes.string.isRequired,
-//       ratings: PropTypes.number.isRequired,
-//       director: PropTypes.string.isRequired,
-//       starring: PropTypes.string.isRequired,
-//       poster: PropTypes.string.isRequired,
-//       video: PropTypes.string.isRequired,
-//       description: PropTypes.string.isRequired,
-//     }),
-//   ),
-// };
+ReviewList.propTypes = {
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+      rating: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      comment: PropTypes.string.isRequired,
+    }).isRequired,
+  ),
+};
 
-export default Film;
+export default ReviewList;

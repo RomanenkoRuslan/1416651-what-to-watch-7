@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FilmCard from '../film-card/film-card.jsx';
-import filmsArray from '../../index.js';
+import FilmList from '../film-list/film-list.jsx';
+// import filmsArray from '../../index.js';
 
-function Main({title, genre, year}) {
+function Main({title, genre, year, films}) {
   return (
     <>
       <section className="film-card">
@@ -102,7 +102,8 @@ function Main({title, genre, year}) {
           </ul>
 
           <div className="catalog__films-list">
-            {filmsArray.map((film) => <FilmCard key={film.id} />)}
+            <FilmList  films={films}/>
+            {/* {filmsArray.map((film) => <FilmCard key={film.id} />)} */}
           </div>
 
           <div className="catalog__more">
@@ -132,6 +133,21 @@ Main.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
+  films: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired,
+      year: PropTypes.number.isRequired,
+      rating: PropTypes.string.isRequired,
+      ratings: PropTypes.number.isRequired,
+      director: PropTypes.string.isRequired,
+      starring: PropTypes.string.isRequired,
+      poster: PropTypes.string.isRequired,
+      video: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+    }),
+  ),
 };
 
 export default Main;
