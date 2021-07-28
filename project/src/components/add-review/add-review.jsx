@@ -1,9 +1,30 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function AddReview() {
   const [newComment, setNewComment] = React.useState(
     {grade: 8, text: 'No cooment. Only grade!'},
   );
+
+  const values = [10,9,8,7,6,5,4,3,2,1];
+
+  function Stars() {
+    return (
+      values.map((value) => (
+        <div key={value}>
+          <input className="rating__input" id={`star-${value}`} type="radio" name="rating" value={value}
+            onClick={(event) => {
+              setNewComment({
+                ...newComment,
+                grade: event.target.value,
+              });
+            }}
+          />
+          <label className="rating__label" htmlFor={`star-${value}`}>Rating item</label>
+        </div>
+      ))
+    );
+  }
 
   return (
     <section className="film-card film-card--full">
@@ -16,11 +37,11 @@ function AddReview() {
 
         <header className="page-header">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <Link to="/" className="logo__link">
               <span clasclassNames="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <nav className="breadcrumbs">
@@ -61,115 +82,7 @@ function AddReview() {
               {newComment.text}
             </h3>
             <div className="rating__stars">
-              <input className="rating__input" id="star-10" type="radio" name="rating" value="10"
-                onClick={() => {
-                  const value = document.querySelector('#star-10').value;
-                  setNewComment({
-                    ...newComment,
-                    grade: value,
-                  });
-                }}
-              />
-              <label className="rating__label" htmlFor="star-10">Rating 10</label>
-
-              <input className="rating__input" id="star-9" type="radio" name="rating" value="9"
-                onClick={() => {
-                  const value = document.querySelector('#star-9').value;
-                  setNewComment({
-                    ...newComment,
-                    grade: value,
-                  });
-                }}
-              />
-              <label className="rating__label" htmlFor="star-9">Rating 9</label>
-
-              <input className="rating__input" id="star-8" type="radio" name="rating" value="8" checked
-                onClick={() => {
-                  const value = document.querySelector('#star-8').value;
-                  setNewComment({
-                    ...newComment,
-                    grade: value,
-                  });
-                }}
-              />
-              <label className="rating__label" htmlFor="star-8">Rating 8</label>
-
-              <input className="rating__input" id="star-7" type="radio" name="rating" value="7"
-                onClick={() => {
-                  const value = document.querySelector('#star-7').value;
-                  setNewComment({
-                    ...newComment,
-                    grade: value,
-                  });
-                }}
-              />
-              <label className="rating__label" htmlFor="star-7">Rating 7</label>
-
-              <input className="rating__input" id="star-6" type="radio" name="rating" value="6"
-                onClick={() => {
-                  const value = document.querySelector('#star-6').value;
-                  setNewComment({
-                    ...newComment,
-                    grade: value,
-                  });
-                }}
-              />
-              <label className="rating__label" htmlFor="star-6">Rating 6</label>
-
-              <input className="rating__input" id="star-5" type="radio" name="rating" value="5"
-                onClick={() => {
-                  const value = document.querySelector('#star-5').value;
-                  setNewComment({
-                    ...newComment,
-                    grade: value,
-                  });
-                }}
-              />
-              <label className="rating__label" htmlFor="star-5">Rating 5</label>
-
-              <input className="rating__input" id="star-4" type="radio" name="rating" value="4"
-                onClick={() => {
-                  const value = document.querySelector('#star-4').value;
-                  setNewComment({
-                    ...newComment,
-                    grade: value,
-                  });
-                }}
-              />
-              <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-              <input className="rating__input" id="star-3" type="radio" name="rating" value="3"
-                onClick={() => {
-                  const value = document.querySelector('#star-3').value;
-                  setNewComment({
-                    ...newComment,
-                    grade: value,
-                  });
-                }}
-              />
-              <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-              <input className="rating__input" id="star-2" type="radio" name="rating" value="2"
-                onClick={() => {
-                  const value = document.querySelector('#star-2').value;
-                  setNewComment({
-                    ...newComment,
-                    grade: value,
-                  });
-                }}
-              />
-              <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-              <input className="rating__input" id="star-1" type="radio" name="rating" value="1"
-                onClick={() => {
-                  const value = document.querySelector('#star-1').value;
-                  setNewComment({
-                    ...newComment,
-                    grade: value,
-                  });
-                }}
-              />
-              <label className="rating__label" htmlFor="star-1">Rating 1</label>
+              <Stars />
             </div>
           </div>
 

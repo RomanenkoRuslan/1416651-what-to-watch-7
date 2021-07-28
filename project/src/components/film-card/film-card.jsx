@@ -12,7 +12,7 @@ function FilmCard(props) {
         <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={film.title} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to="/films/:id">{film.title}</Link>
+        <Link className="small-film-card__link" to={`/films/${film.id}`}>{film.title}</Link>
       </h3>
     </article>
   );

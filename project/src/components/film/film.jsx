@@ -1,8 +1,11 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import Header from '../header/header.jsx';
+import Footer from '../footer/footer.jsx';
+import FilmList from '../film-list/film-list.jsx';
+import PropTypes from 'prop-types';
 
 function Film(props) {
-  // const films = props.films;
+  const films = props.films;
   // console.log(props.id);
   return (
     <>
@@ -14,26 +17,7 @@ function Film(props) {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a href="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <Header />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -110,78 +94,32 @@ function Film(props) {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
-              </h3>
-            </article>
+            <FilmList films={films}/>
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
 }
 
-// Film.propTypes = {
-//   films: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       title: PropTypes.string.isRequired,
-//       genre: PropTypes.string.isRequired,
-//       year: PropTypes.number.isRequired,
-//       rating: PropTypes.string.isRequired,
-//       ratings: PropTypes.number.isRequired,
-//       director: PropTypes.string.isRequired,
-//       starring: PropTypes.string.isRequired,
-//       poster: PropTypes.string.isRequired,
-//       video: PropTypes.string.isRequired,
-//       description: PropTypes.string.isRequired,
-//     }),
-//   ),
-// };
+Film.propTypes = {
+  films: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired,
+      year: PropTypes.number.isRequired,
+      rating: PropTypes.string.isRequired,
+      ratings: PropTypes.number.isRequired,
+      director: PropTypes.string.isRequired,
+      starring: PropTypes.string.isRequired,
+      poster: PropTypes.string.isRequired,
+      video: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+    }),
+  ),
+};
 
 export default Film;

@@ -12,7 +12,7 @@ function Review(props) {
 
         <footer className="review__details">
           <cite className="review__author">{review.author}</cite>
-          <time className="review__date" dateTime="2016-12-24">{review.date}</time>
+          <time className="review__date" dateTime={review.date}>{review.date}</time>
         </footer>
       </blockquote>
       <div className="review__rating">{review.rating}</div>

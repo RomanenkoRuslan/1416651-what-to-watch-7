@@ -33,7 +33,7 @@ function App(props) {
           <Film films={films}/>
         </Route>
         <Route exact path={AppRoute.REVIEW}>
-          <ReviewList reviews={reviews}/>
+          <ReviewList reviews={reviews} films={films}/>
         </Route>
         <Route exact path={AppRoute.ADDREVIEW}>
           <AddReview />
