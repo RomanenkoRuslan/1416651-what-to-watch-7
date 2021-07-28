@@ -40,6 +40,7 @@ export const AppRoute = {
   LOGIN: '/login',
   MYLIST: '/mylist',
   FILM: '/films/:id',
+  ADDREVIEW: '/films/:id/add-review',
   REVIEW: '/films/:id/review',
   PLAYER: '/player/:id',
 };

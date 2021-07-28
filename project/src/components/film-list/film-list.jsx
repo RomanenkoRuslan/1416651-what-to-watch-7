@@ -1,29 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FilmList from '../film-list/film-list.jsx';
-import Header from '../header/header.jsx';
-import Footer from '../footer/footer.jsx';
+import FilmCard from '../film-card/film-card.jsx';
 
-function MyList(props) {
+function FilmList(props) {
   const films = props.films;
+  // eslint-disable
+  // console.log(films);
   return (
-    <div className="user-page">
-      <Header />
-
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <div className="catalog__films-list">
-          {<FilmList films={films}/>}
-        </div>
-      </section>
-
-      <Footer />
-    </div>
+    <>
+      {films.map((film) => <FilmCard key={film.id} film={film}/>)}
+    </>
   );
 }
 
-MyList.propTypes = {
+FilmList.propTypes = {
   films: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -41,4 +31,4 @@ MyList.propTypes = {
   ),
 };
 
-export default MyList;
+export default FilmList;
