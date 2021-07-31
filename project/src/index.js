@@ -20,6 +20,12 @@ export default filmsArray;
 
 const filmCard = getFilmCard();
 
+// {
+//   element: 'div',
+//   children: [
+//     {element: 'h1', text: 'Hello'}
+//   ]
+// }
 ReactDOM.render(
   <React.StrictMode>
     <App
