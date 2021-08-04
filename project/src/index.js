@@ -5,6 +5,15 @@ import {getRandomInRange, getRandomItem} from './utils.js';
 import {TITLESFILMS, GENRES, SUMFILMS} from './const.js';
 import Films from './mocks/films.js';
 import Reviews from './mocks/reviews.js';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {reducer} from './store/reducer.js';
+import {composeWithDevTools} from 'redux-devtools-extension';
+
+const store = createStore(
+  reducer,
+  composeWithDevTools(),
+);
 
 function getFilmCard() {
   return {
@@ -28,10 +37,12 @@ const filmCard = getFilmCard();
 // }
 ReactDOM.render(
   <React.StrictMode>
-    <App
-      film={filmCard}
-      films={Films}
-      reviews={Reviews}
-    />
+    <Provider store={store}>
+      <App
+        film={filmCard}
+        films={Films}
+        reviews={Reviews}
+      />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

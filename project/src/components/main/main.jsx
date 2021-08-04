@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import FilmList from '../film-list/film-list.jsx';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
-// import filmsArray from '../../index.js';
+import { connect } from 'react-redux';
+import {ActionCreator} from '../../store/action.js';
+import {GENRES} from '../../store/reducer.js';
+import GenresList from '../genres-list/genres-list.jsx';
 
-function Main({title, genre, year, films}) {
+
+function Main({promoFilm, genre, films, changeGenre}) {
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={title} />
+          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promoFilm.title} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <Header />
@@ -18,14 +22,14 @@ function Main({title, genre, year, films}) {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={title} width="218" height="327" />
+              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={promoFilm.title} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{promoFilm.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{year}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.year}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -51,42 +55,10 @@ function Main({title, genre, year, films}) {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenresList genre={genre} changeGenre={changeGenre}/>
 
           <div className="catalog__films-list">
             <FilmList  films={films}/>
-            {/* {filmsArray.map((film) => <FilmCard key={film.id} />)} */}
           </div>
 
           <div className="catalog__more">
@@ -101,9 +73,16 @@ function Main({title, genre, year, films}) {
 }
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
+  promoFilm: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired,
+      year: PropTypes.number.isRequired,
+    }),
+  ),
   genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
+  changeGenre: PropTypes.func.isRequired,
   films: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -121,4 +100,30 @@ Main.propTypes = {
   ),
 };
 
-export default Main;
+export { Main };
+
+const mapStateToProps = (state) => {
+
+  let filteredFilms = state.films;
+
+  if (state.genre !== GENRES.ALLGENRES) {
+    filteredFilms = state.films.filter((film) => film.genre === state.genre);
+  }
+
+  return {
+    genre: state.genre,
+    films: filteredFilms,
+  };
+};
+
+// changeGenre: (genre) => ({
+//   type: ActionType.CHANGE_GENRE,
+//   payload: genre,
+// }),
+const mapDispatchToProps = (dispatch) => ({
+  changeGenre (genre) {
+    dispatch(ActionCreator.changeGenre(genre));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

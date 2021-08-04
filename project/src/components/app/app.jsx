@@ -11,8 +11,9 @@ import ErrorScreen from '../error-screen/error-screen.jsx';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 
+
 function App(props) {
-  const {title, genre, year} = props.film;
+  // const {title, genre, year} = props.film;
   const films = props.films;
   const reviews = props.reviews;
   //eslint-disable
@@ -21,7 +22,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main title={title} genre={genre} year={year} films={films}/>
+          <Main promoFilm={props.film} />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
