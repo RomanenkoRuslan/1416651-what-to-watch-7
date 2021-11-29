@@ -44,3 +44,19 @@ export const AppRoute = {
   REVIEW: '/films/:id/review',
   PLAYER: '/player/:id',
 };
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+export const APIRoute = {
+  FILMS: '/films',
+  PROMO_FILM: '/promo',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+  SIMILAR_FILM: 'films/:id/similar',
+  COMMENTS: '/comments/:film_id',
+  FAVORITE_FILMS: '/favorite',
+};

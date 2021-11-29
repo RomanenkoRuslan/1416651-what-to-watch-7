@@ -1,39 +1,71 @@
-import { ActionType } from './action.js';
-import films from '../mocks/films.js';
+import {AuthorizationStatus} from '../const.js';
+import { createReducer } from '@reduxjs/toolkit';
+import { changeGenre, loadData, loadPromoFilm, loadSimilarFilm, loadComments, requireAuthorization, postComments, logout, loadFavoriteFilms, updateFavoriteFilms } from './action.js';
 
 export const GENRES = {
   ALLGENRES: 'ALLGENRES',
-  COMEDIES: 'Comedies',
+  COMEDY: 'Comedy',
   CRIME: 'Crime',
   DOCUMENTARY: 'Documentary',
-  DRAMS: 'Dramas',
-  HORROR: 'Horror',
-  KIDSANDFAMILY: 'Kids & Family',
-  ROMANCE: 'Romance',
-  SCIFI: 'Sci-Fi',
-  THRILLERS: 'Thrillers',
+  DRAMA: 'Drama',
+  ADVENTURE: 'Adventure',
+  FANTASY: 'Fantasy',
+  ACTION: 'Action',
+  THRILLER: 'Thriller',
 };
 
 
 const initialState = {
   genre: GENRES.ALLGENRES,
-  films : films,
+  films: [],
+  promoFilm: {},
+  similarFilm: [],
+  favoriteFilms: [],
+  comments: [],
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  isDataLoaded: false,
 };
 
-// {
-//   type: ActionType.CHANGE_GENRE,
-//   payload: "ALLGENRES",
-// }
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.CHANGE_GENRE:
-      return {
-        ...state,
-        genre: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+const reducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(changeGenre, (state, action) => {
+      state.genre = action.payload;
+    })
+    .addCase(loadData, (state, action) => {
+      state.films = action.payload;
+      state.isDataLoaded = true;
+    })
+    .addCase(loadPromoFilm, (state, action) => {
+      state.promoFilm = action.payload;
+    })
+    .addCase(loadFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
+    })
+    .addCase(loadSimilarFilm, (state, action) => {
+      state.similarFilm = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(postComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(updateFavoriteFilms, (state, action) => {
+      const film = action.payload;
+      const prevFavoriteFilms = state.favoriteFilms.slice();
+      if (film.isFavorite) {
+        prevFavoriteFilms.push(film);
+        state.favoriteFilms = prevFavoriteFilms;
+      } else {
+        state.favoriteFilms = prevFavoriteFilms.filter((item) => item.id !== film.id);
+      }
+    })
+    .addCase(logout, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NO_AUTH;
+    });
+});
 
 export {reducer};

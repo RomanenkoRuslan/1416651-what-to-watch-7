@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 
-function VideoPlayer({src}) {
+function MiniPlayer({src}) {
 
   const videoRef = useRef();
 
@@ -15,8 +15,8 @@ function VideoPlayer({src}) {
   );
 }
 
-VideoPlayer.propTypes = {
+MiniPlayer.propTypes = {
   src: PropTypes.string.isRequired,
 };
 
-export default VideoPlayer;
+export default MiniPlayer;

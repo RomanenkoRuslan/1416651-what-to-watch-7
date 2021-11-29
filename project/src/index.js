@@ -1,48 +1,51 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {getRandomInRange, getRandomItem} from './utils.js';
-import {TITLESFILMS, GENRES, SUMFILMS} from './const.js';
-import Films from './mocks/films.js';
-import Reviews from './mocks/reviews.js';
-import {createStore} from 'redux';
+import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
+import { Router as BrowserRouter } from 'react-router-dom';
 import {reducer} from './store/reducer.js';
-import {composeWithDevTools} from 'redux-devtools-extension';
+import {createAPI} from './api/api.js';
+import { AuthorizationStatus } from './const.js';
+import {checkAuth, fetchFilmList, fetchPromoFilm, fetchFavoriteFilms} from './store/api-actions.js';
+import {requireAuthorization} from './store/action.js';
+import browserHistory from './browser-history';
 
-const store = createStore(
-  reducer,
-  composeWithDevTools(),
+const api = createAPI(
+  onUnauthorized,
 );
 
-function getFilmCard() {
-  return {
-    id: getRandomInRange(10000, 99999),
-    title: getRandomItem(TITLESFILMS),
-    genre: getRandomItem(GENRES),
-    year: getRandomInRange(2021, 1990),
-  };
+
+export const store = configureStore({
+  reducer: reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
+    }),
+});
+
+function onUnauthorized() {
+  store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
 }
 
-const filmsArray = new Array(SUMFILMS).fill().map(getFilmCard);
-export default filmsArray;
+const p = store.dispatch(checkAuth());
 
-const filmCard = getFilmCard();
+store.dispatch(fetchFilmList());
+store.dispatch(fetchPromoFilm());
+store.dispatch(fetchFavoriteFilms());
 
-// {
-//   element: 'div',
-//   children: [
-//     {element: 'h1', text: 'Hello'}
-//   ]
-// }
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App
-        film={filmCard}
-        films={Films}
-        reviews={Reviews}
-      />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root'));
+
+p.finally(() => {
+  ReactDOM.render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <BrowserRouter history={browserHistory}>
+          <App/>
+        </BrowserRouter>
+      </Provider>
+    </React.StrictMode>,
+    document.getElementById('root'));
+});
+

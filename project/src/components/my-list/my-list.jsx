@@ -1,44 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import FilmList from '../film-list/film-list.jsx';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
+import { useSelector } from 'react-redux';
+import { getFavoriteFilms } from '../../store/selectors.js';
 
-function MyList(props) {
-  const films = props.films;
+function MyList() {
+  const favoriteFilms = useSelector(getFavoriteFilms);
   return (
     <div className="user-page">
-      <Header />
-
       <section className="catalog">
+        <Header>
+          <h1 className="page-title user-page__title" style={{top: '70px', width: '200px'}}>My list</h1>
+        </ Header>
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <div className="catalog__films-list">
-          {<FilmList films={films}/>}
-        </div>
+        {
+          favoriteFilms.length > 0 ?
+            <FilmList films={favoriteFilms} isButton/> :
+            <p style={{display: 'flex', justifyContent: 'center', color: 'red'}}>Your list is empty!!! Add films!</p>
+        }
       </section>
 
       <Footer />
     </div>
   );
 }
-
-MyList.propTypes = {
-  films: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired,
-      rating: PropTypes.string.isRequired,
-      ratings: PropTypes.number.isRequired,
-      director: PropTypes.string.isRequired,
-      starring: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      video: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-    }),
-  ),
-};
 
 export default MyList;
