@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Footer() {
-  //eslint-disable
-  // console.log(review);
   return (
     <footer className="page-footer">
       <div className="logo">
