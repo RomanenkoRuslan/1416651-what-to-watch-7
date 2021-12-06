@@ -1,6 +1,6 @@
 import { reducer, GENRES } from './reducer.js';
 import {AuthorizationStatus} from '../const.js';
-import { changeGenre, loadData, loadPromoFilm, loadSimilarFilm, loadComments, requireAuthorization, postComments, logout, loadFavoriteFilms, updateFavoriteFilms } from './action.js';
+import { changeGenre, loadData, loadPromoFilm, loadSimilarFilm, loadComments, requireAuthorization, postComments, logout, loadFavoriteFilms, updateFavoriteFilm } from './action.js';
 
 const defaultInitialState = {
   genre: GENRES.ALLGENRES,
@@ -139,7 +139,33 @@ describe('Reducer', () => {
     expect(reducer(defaultInitialState, postComments([{}, {}, {}]))).toEqual(expectedState);
   });
 
-  it('should updateFavoriteFilms', () => {
+  it('should updateFavoriteFilm: add film to favoriteFilms', () => {
+    const expectedState= {
+      genre: GENRES.ALLGENRES,
+      films: [],
+      promoFilm: {},
+      similarFilm: [],
+      favoriteFilms: [{isFavorite: true}],
+      comments: [],
+      authorizationStatus: AuthorizationStatus.UNKNOWN,
+      isDataLoaded: false,
+    };
+
+    expect(reducer(defaultInitialState, updateFavoriteFilm({isFavorite: true}))).toEqual(expectedState);
+  });
+
+  it('should updateFavoriteFilm: remove film from favoriteFilms', () => {
+    const defaultInitialStateTwo = {
+      genre: GENRES.ALLGENRES,
+      films: [],
+      promoFilm: {},
+      similarFilm: [],
+      favoriteFilms: [{id: 123, isFavorite: true}],
+      comments: [],
+      authorizationStatus: AuthorizationStatus.UNKNOWN,
+      isDataLoaded: false,
+    };
+
     const expectedState= {
       genre: GENRES.ALLGENRES,
       films: [],
@@ -151,7 +177,7 @@ describe('Reducer', () => {
       isDataLoaded: false,
     };
 
-    expect(reducer(defaultInitialState, updateFavoriteFilms([]))).toEqual(expectedState);
+    expect(reducer(defaultInitialStateTwo, updateFavoriteFilm({id: 123, isFavorite: false}))).toEqual(expectedState);
   });
 
   it('should logout', () => {

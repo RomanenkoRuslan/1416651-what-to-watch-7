@@ -1,6 +1,6 @@
 import {AuthorizationStatus} from '../const.js';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, loadData, loadPromoFilm, loadSimilarFilm, loadComments, requireAuthorization, postComments, logout, loadFavoriteFilms, updateFavoriteFilms } from './action.js';
+import { changeGenre, loadData, loadPromoFilm, loadSimilarFilm, loadComments, requireAuthorization, postComments, logout, loadFavoriteFilms, updateFavoriteFilm } from './action.js';
 
 export const GENRES = {
   ALLGENRES: 'ALLGENRES',
@@ -53,7 +53,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(postComments, (state, action) => {
       state.comments = action.payload;
     })
-    .addCase(updateFavoriteFilms, (state, action) => {
+    .addCase(updateFavoriteFilm, (state, action) => {
       const film = action.payload;
       const prevFavoriteFilms = state.favoriteFilms.slice();
       if (film.isFavorite) {

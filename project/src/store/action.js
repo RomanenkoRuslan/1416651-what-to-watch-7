@@ -48,7 +48,7 @@ export const postComments = createAction(ActionType.POST_COMMENT, (status) => ({
   payload: status,
 }));
 
-export const updateFavoriteFilms = createAction(ActionType.UPDATE_FAVORITE_FILM, (film) => ({
+export const updateFavoriteFilm = createAction(ActionType.UPDATE_FAVORITE_FILM, (film) => ({
   payload: film,
 }));
 
