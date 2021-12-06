@@ -39,7 +39,7 @@ function Player() {
 
   return (
     <div className="player">
-      <video src={film.video_link} ref={videoRef} className="player__video" poster={film.previewImage}
+      <video src={film.videoLink} ref={videoRef} className="player__video" poster={film.previewImage}
         onTimeUpdate={ () => {
           setTimer(videoRef.current.currentTime);
         }}

@@ -9,7 +9,7 @@ import {
   loadComments,
   requireAuthorization,
   postComments,
-  updateFavoriteFilms,
+  updateFavoriteFilm,
   logout,
   ActionType
 } from './action.js';
@@ -95,13 +95,13 @@ describe('Action', () => {
     expect(postComments({})).toEqual(expectedAction);
   });
 
-  it('action creator for updateFavoriteFilms returns correct action', () => {
+  it('action creator for updateFavoriteFilm returns correct action', () => {
     const expectedAction = {
       type: ActionType.UPDATE_FAVORITE_FILM,
       payload: {},
     };
 
-    expect(updateFavoriteFilms({})).toEqual(expectedAction);
+    expect(updateFavoriteFilm({})).toEqual(expectedAction);
   });
 
   it('action creator for logout returns correct action', () => {

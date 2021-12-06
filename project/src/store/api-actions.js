@@ -1,5 +1,5 @@
 import {AuthorizationStatus, APIRoute} from '../const';
-import {loadData, loadPromoFilm, loadSimilarFilm, loadComments, requireAuthorization, postComments, logout, loadFavoriteFilms, updateFavoriteFilms} from './action.js';
+import {loadData, loadPromoFilm, loadSimilarFilm, loadComments, requireAuthorization, postComments, logout, loadFavoriteFilms, updateFavoriteFilm} from './action.js';
 import { adaptDataToClient } from './adapter';
 
 export const fetchFilmList = () => (dispatch, _getState, api) => (
@@ -43,7 +43,7 @@ export const postComment = (filmId, {rating, comment}) => (dispatch, _getState, 
 
 
 export const postFavorite = (filmId, {film, status}) => (dispatch, _getState, api) => api.post(`/favorite/${filmId}/${status}`, {}, { headers: { 'x-token': localStorage.getItem('token') }})
-  .then(({data}) => dispatch(updateFavoriteFilms(data)));
+  .then(({data}) => dispatch(updateFavoriteFilm(adaptDataToClient(data))));
 
 export const logoutSite = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
